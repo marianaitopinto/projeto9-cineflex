@@ -1,4 +1,4 @@
-export default function Filme() {
+export default function Movie() {
     return (
         <p>Filme</p>
     );

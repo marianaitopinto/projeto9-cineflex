@@ -1,4 +1,4 @@
-export default function Sessao() {
+export default function Session() {
     return (
         <p>Sessão</p>
     )
