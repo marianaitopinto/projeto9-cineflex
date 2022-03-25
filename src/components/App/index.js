@@ -12,7 +12,7 @@ export default function App() {
                 <Header />
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/movie" element={<Movie />} />
+                    <Route path="/movie/:movieId" element={<Movie />} />
                     <Route path="/session" element={<Session />} />
                     <Route path="/success" element={<Success />} />
                 </Routes>
