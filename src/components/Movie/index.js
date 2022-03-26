@@ -31,15 +31,17 @@ export default function Movie() {
                             <MovieTime>
                                 {showtimes.map(({ name, id }) => {
                                     return (
-                                        <Time key={id}>{name}</Time>
+                                        <Link to={`/session/${id}`}>
+                                            <Time key={id}>{name}</Time>
+                                        </Link>
                                     )
                                 })}
-                            </MovieTime> 
+                            </MovieTime>
                         </>
-            )
+                    )
                 }
                 )}
-        </Session>
+            </Session>
         </>
     )
 }

@@ -37,7 +37,7 @@ export default function Home() {
 
         :
 
-        <SelectMovie>Loading...</SelectMovie>
+        <SelectMovie>Carregando...</SelectMovie>
     )
 
 }
