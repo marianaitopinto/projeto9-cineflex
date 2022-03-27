@@ -29,7 +29,7 @@ export default function Session() {
             <Seats>
                 {times.seats.map(({ id, name, isAvailable }) => {
                     return (
-                        <Seat >{name < 10 ? `0${name}` : `${name}`}</Seat>
+                        <Seat isAvailable={isAvailable}>{name < 10 ? `0${name}` : `${name}`}</Seat>
                     )
                 })}
             </Seats>
@@ -93,9 +93,8 @@ const Seat = styled.div`
     letter-spacing: 0.04em;
 
     color: #000000;
-
-    background: #C3CFD9;
-    border: 1px solid #808F9D;
+    background: ${props => props.isAvailable === true ? "#C3CFD9" : "#FBE192"};
+    border: ${props => props.isAvailable === true ? "1px solid #808F9D" : "1px solid #F7C52B"};
     box-sizing: border-box;
     border-radius: 12px;
     display: flex;
