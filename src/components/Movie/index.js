@@ -31,7 +31,7 @@ export default function Movie() {
                             <MovieTime>
                                 {showtimes.map(({ name, id }) => {
                                     return (
-                                        <Link to={`/session/${id}`}>
+                                        <Link to={`/session/${id}`} style={{textDecoration: 'none'}}>
                                             <Time key={id}>{name}</Time>
                                         </Link>
                                     )
@@ -94,6 +94,7 @@ const Time = styled.div`
     display:flex;
     justify-content:center;
     align-items: center;
+    text-decoration: none 
 `
 
 const MovieTime = styled.div`
@@ -102,6 +103,7 @@ const MovieTime = styled.div`
     margin-top: 15px;
     margin-bottom: 15px;
     margin-left: 23px;
+    text-decoration: none 
     `
 
     const Footer = styled.div`

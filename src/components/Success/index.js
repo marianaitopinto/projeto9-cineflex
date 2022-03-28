@@ -49,7 +49,7 @@ line-height: 26px;
 display: flex;
 align-items: center;
 letter-spacing: 0.04em;
-
+margin-left: 15px;
 color: #293845;
 `
 
@@ -64,6 +64,7 @@ display: flex;
 align-items: center;
 letter-spacing: 0.04em;
 margin-top: 20px;
+margin-left: 15px;
 
 color: #293845;
 }

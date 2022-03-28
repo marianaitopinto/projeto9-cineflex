@@ -76,7 +76,17 @@ export default function Session({setSession}) {
             <Seats>
                 {times.seats.map(({ id, name, isAvailable }) => {
                     return (
-                        <Seat key={id} id={id} isAvailable={isAvailable} selected={selected} name={name} onClick={() => selectAssent(isAvailable, id, name)}>{name < 10 ? `0${name}` : `${name}`}</Seat>
+                        <Seat key={id} id={id} isAvailable={isAvailable} selected={selected} name={name} css={
+                            !selected.includes(id)
+                              ? isAvailable
+                                ? {
+                                    background: `#C3CFD9`, border: `#7B8B99`,
+                                  }
+                                : {
+                                    background: `#FBE192`, border: `#F7C52B`,
+                                  }
+                              : { background: `#8DD7CF`, border: `#1AAE9E` }
+                          }onClick={() => selectAssent(isAvailable, id, name)}>{name < 10 ? `0${name}` : `${name}`}</Seat>
                     )
                 })}
             </Seats>
@@ -84,10 +94,12 @@ export default function Session({setSession}) {
                 {legends.map(legend => {
                     return (
                         <>
+                        <Layout2>
                             <DivLegend>
                                 <Legend background={legend.background} border={legend.border}></Legend>
                                 <p>{legend.text}</p>
                             </DivLegend>
+                        </Layout2>
                         </>
                     )
                 })}
@@ -151,8 +163,8 @@ const Seat = styled.div`
     letter-spacing: 0.04em;
 
     color: #000000;
-    background: ${props => (props.selected === true ? `#8DD7CF` : props => props.isAvailable ? `#C3CFD9` : `#FBE192`)};
-    border: 1px solid ${props => (props.selected === true ? `#1AAE9E` : props => props.isAvailable ? `#7B8B99` : `#F7C52B`)};
+    background: ${props => props.css.background};
+    border: 1px solid ${props => props.css.border};
     box-sizing: border-box;
     border-radius: 12px;
     display: flex;
@@ -292,3 +304,9 @@ const Layout = styled.div`
 display:flex;
 justify-content: center;
 `
+
+const Layout2 = styled.div`
+margin-top: 10px;
+margin-bottom: 10px;
+display: flex;
+margin-left: 42px;`
