@@ -134,7 +134,6 @@ export default function Session({setSession}) {
 }
 
 const SelectSession = styled.div`
-    font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
@@ -190,7 +189,6 @@ const Legends = styled.div`
     justify-content: space-evenly;
 
     p{
-        font-family: 'Roboto';
         font-style: normal;
         font-weight: 400;
         font-size: 13px;
@@ -281,7 +279,6 @@ margin-top: 30px;
 
 p{
     margin-left: 15px;
-    font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-size: 26px;

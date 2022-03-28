@@ -51,7 +51,6 @@ export default function Movie() {
 }
 
 const SelectSession = styled.div`
-    font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
@@ -68,7 +67,6 @@ const SelectSession = styled.div`
 `
 
 const Days = styled.div`
-    font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
@@ -117,7 +115,6 @@ const MovieTime = styled.div`
     
     p{
         margin-left: 15px;
-        font-family: 'Roboto';
         font-style: normal;
         font-weight: 400;
         font-size: 26px;

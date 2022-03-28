@@ -41,7 +41,6 @@ export default function Success({ session }) {
 }
 
 const Info = styled.div`
-font-family: 'Roboto';
 font-style: normal;
 font-weight: 400;
 font-size: 18px;
@@ -55,7 +54,6 @@ color: #293845;
 
 const Infos = styled.div`
 p {
-font-family: 'Roboto';
 font-style: normal;
 font-weight: 700;
 font-size: 20px;
@@ -77,7 +75,6 @@ const Title = styled.h1`
     margin-bottom: 25px;
 
 p {
-font-family: 'Roboto';
 font-style: normal;
 font-weight: 700;
 font-size: 18px;
@@ -116,7 +113,6 @@ const Button = styled.button`
 `
 
 const Loading = styled.div`
-    font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
