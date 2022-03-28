@@ -11,6 +11,8 @@ export default function Session() {
         { text: "Disponível", background: `#C3CFD9`, border: `#7B8B99` },
         { text: "Indisponível", background: `#FBE192`, border: `#F7C52B` }
     ];
+    const [selected, setSelected] = useState([]);
+    console.log(selected)
 
     useEffect(() => {
         console.log(sessionId)
@@ -23,13 +25,30 @@ export default function Session() {
         promise.catch(err => console.log(err.response));
     }, []);
 
+    function selectAssent(isAvailable, id) {
+        if (!isAvailable) {
+            alert("Este assento não está disponível.");
+            return;
+        } else {
+            if (!selected.includes(id)) {
+                setSelected([...selected, id]);
+                return;
+            } else {
+                selected.splice(selected.indexOf(id), 1);
+                setSelected([...selected]);
+                return;
+            }
+        }
+    }
+
+
     return (times !== "") ?
         <>
             <SelectSession>Selecione o(s) assento(s)</SelectSession>
             <Seats>
                 {times.seats.map(({ id, name, isAvailable }) => {
                     return (
-                        <Seat isAvailable={isAvailable}>{name < 10 ? `0${name}` : `${name}`}</Seat>
+                        <Seat key={id} id={id} isAvailable={isAvailable} selected={selected} onClick={() => selectAssent(isAvailable, id)}>{name < 10 ? `0${name}` : `${name}`}</Seat>
                     )
                 })}
             </Seats>
@@ -93,12 +112,16 @@ const Seat = styled.div`
     letter-spacing: 0.04em;
 
     color: #000000;
-    background: ${props => props.isAvailable === true ? "#C3CFD9" : "#FBE192"};
-    border: ${props => props.isAvailable === true ? "1px solid #808F9D" : "1px solid #F7C52B"};
+    background: ${props => (props.selected === true ? `#8DD7CF` : props => props.isAvailable ? `#C3CFD9` : `#FBE192`)};
+    border: 1px solid ${props => (props.selected === true ? `#1AAE9E` : props => props.isAvailable ? `#7B8B99` : `#F7C52B`)};
     box-sizing: border-box;
     border-radius: 12px;
     display: flex;
     justify-content: center;
+        :hover{
+                cursor: pointer;
+                filter: brightness(0.9);
+        }
 `
 
 const Seats = styled.div`
