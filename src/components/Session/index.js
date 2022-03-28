@@ -13,6 +13,8 @@ export default function Session() {
     ];
     const [selected, setSelected] = useState([]);
     console.log(selected)
+    const [name, setName] = useState("");
+    const [cpf, setCpf] = useState("");
 
     useEffect(() => {
         console.log(sessionId)
@@ -41,6 +43,25 @@ export default function Session() {
         }
     }
 
+    function sentInfos(e) {
+        e.preventDefault();
+        if (selected.length === 0) {
+            alert("Selecione os assentos!")
+            return;
+        }
+        const promise = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", 
+            {
+                ids: [...selected],
+                name: {name},
+                cpf: {cpf}
+            })
+        
+        promise.then((response) => {
+            alert("ok")
+        });
+
+        promise.catch(error => alert("Erro no envio das informações"));
+    }
 
     return (times !== "") ?
         <>
@@ -65,16 +86,18 @@ export default function Session() {
                 })}
             </Legends>
 
-            <form>
+            <form onSubmit={sentInfos}>
                 <DivLayout>
                     <Font>Nome do comprador:</Font>
-                    <Input placeholder='   Digite seu nome' type='text'></Input>
+                    <Input placeholder='   Digite seu nome' type='text' onChange={(e) => setName(e.target.value)}
+              value={name} required></Input>
                 </DivLayout>
                 <DivLayout>
                     <Font>CPF do comprador:</Font>
-                    <Input placeholder='   Digite seu CPF' type='text'></Input>
+                    <Input placeholder='   Digite seu CPF' type='text' onChange={(e) => setCpf(e.target.value)}
+              value={cpf} required></Input>
                 </DivLayout>
-                <Button>Reservar assento(s)</Button>
+                <Button type="submit">Reservar assento(s)</Button>
 
             </form>
         </>
