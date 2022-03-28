@@ -42,6 +42,10 @@ export default function Movie() {
                 }
                 )}
             </Session>
+            <Footer>
+                <img src={sessions.posterURL} alt={sessions.title} />
+                <p>{sessions.title}</p>
+            </Footer>
         </>
     )
 }
@@ -99,3 +103,35 @@ const MovieTime = styled.div`
     margin-bottom: 15px;
     margin-left: 23px;
     `
+
+    const Footer = styled.div`
+    width: 375px;
+    height: 117px;
+    border: 1px solid #9EADBA;
+    background: #DFE6ED;
+    display:flex;
+    align-items: center;
+    margin-top: 30px;
+    
+    p{
+        margin-left: 15px;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 26px;
+        line-height: 30px;
+        display: flex;
+        align-items: center;
+    
+        color: #293845;
+    }
+    
+    img {
+        margin-left: 25px;
+        width: 48px; 
+        height: 72px;
+        background: #FFFFFF;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 2px;
+    }
+`

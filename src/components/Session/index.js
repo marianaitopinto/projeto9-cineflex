@@ -1,9 +1,9 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import styled from 'styled-components'
 import { useState, useEffect } from "react";
 
-export default function Session() {
+export default function Session({setSession}) {
     const { sessionId } = useParams();
     const [times, setTimes] = useState("");
     const legends = [
@@ -12,9 +12,12 @@ export default function Session() {
         { text: "Indisponível", background: `#FBE192`, border: `#F7C52B` }
     ];
     const [selected, setSelected] = useState([]);
+    const [assents, setAssents] = useState([]);
     console.log(selected)
+    console.log(assents)
     const [name, setName] = useState("");
     const [cpf, setCpf] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         console.log(sessionId)
@@ -27,17 +30,20 @@ export default function Session() {
         promise.catch(err => console.log(err.response));
     }, []);
 
-    function selectAssent(isAvailable, id) {
+    function selectAssent(isAvailable, id, name) {
         if (!isAvailable) {
             alert("Este assento não está disponível.");
             return;
         } else {
             if (!selected.includes(id)) {
                 setSelected([...selected, id]);
+                setAssents([...assents, name])
                 return;
             } else {
                 selected.splice(selected.indexOf(id), 1);
                 setSelected([...selected]);
+                assents.splice(assents.indexOf(name), 1);
+                setAssents([...assents])
                 return;
             }
         }
@@ -49,6 +55,7 @@ export default function Session() {
             alert("Selecione os assentos!")
             return;
         }
+        setSession({movie: times.movie.title, day: times.day.weekday, data: times.day.date, time: times.name, name: name, cpf: cpf, assents: [...assents]})
         const promise = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", 
             {
                 ids: [...selected],
@@ -57,10 +64,10 @@ export default function Session() {
             })
         
         promise.then((response) => {
-            alert("ok")
+            navigate("/success");
         });
 
-        promise.catch(error => alert("Erro no envio das informações"));
+        promise.catch(error => alert("Algo deu errado! Por favor, reinicie o pedido."));
     }
 
     return (times !== "") ?
@@ -69,7 +76,7 @@ export default function Session() {
             <Seats>
                 {times.seats.map(({ id, name, isAvailable }) => {
                     return (
-                        <Seat key={id} id={id} isAvailable={isAvailable} selected={selected} onClick={() => selectAssent(isAvailable, id)}>{name < 10 ? `0${name}` : `${name}`}</Seat>
+                        <Seat key={id} id={id} isAvailable={isAvailable} selected={selected} name={name} onClick={() => selectAssent(isAvailable, id, name)}>{name < 10 ? `0${name}` : `${name}`}</Seat>
                     )
                 })}
             </Seats>
@@ -89,17 +96,26 @@ export default function Session() {
             <form onSubmit={sentInfos}>
                 <DivLayout>
                     <Font>Nome do comprador:</Font>
-                    <Input placeholder='   Digite seu nome' type='text' onChange={(e) => setName(e.target.value)}
+                    <Input minLength="3" placeholder='   Digite seu nome' type='text' onChange={(e) => setName(e.target.value)}
               value={name} required></Input>
                 </DivLayout>
                 <DivLayout>
                     <Font>CPF do comprador:</Font>
-                    <Input placeholder='   Digite seu CPF' type='text' onChange={(e) => setCpf(e.target.value)}
+                    <Input pattern="[0-9]{11}" placeholder='   Digite seu CPF' type='text' onChange={(e) => setCpf(e.target.value)}
               value={cpf} required></Input>
                 </DivLayout>
+                <Layout>
                 <Button type="submit">Reservar assento(s)</Button>
-
+                </Layout>
             </form>
+
+            <Footer>
+            <img src={times.movie.posterURL} alt={times.movie.title} />
+            <div>
+            <p>{times.movie.title}</p>
+            <p>{times.day.weekday} - {times.name}</p>
+            </div>
+            </Footer>
         </>
         :
         (<SelectSession>Carregando...</SelectSession>)
@@ -172,7 +188,6 @@ const Legends = styled.div`
         color: #4E5A65;
 
     }
-
 `
 
 const DivLegend = styled.div`
@@ -240,5 +255,40 @@ display:flex;
 flex-direction: column;
 margin-left: 15px;
 gap:10px;
-margin-bottom: 10px;
+margin-bottom: 8px;
+`
+
+const Footer = styled.div`
+width: 375px;
+height: 117px;
+border: 1px solid #9EADBA;
+background: #DFE6ED;
+display:flex;
+align-items: center;
+margin-top: 30px;
+
+p{
+    margin-left: 15px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+
+    color: #293845;
+}
+
+img {
+    margin-left: 25px;
+    width: 48px; 
+    height: 72px
+    background: #FFFFFF;
+    
+`
+
+const Layout = styled.div`
+display:flex;
+justify-content: center;
 `
